@@ -9,9 +9,9 @@ from authlib.flask.client import OAuth
 
 
 def setup():
-    # Initializing OAuth
+    # Initializing OAuth.
     oauth = OAuth(current_app)
-    current_app.secret_key = 'joanzhengJOANZHENG'
+    current_app.secret_key = os.environ['APP_SECRET_KEY']
 
     global auth0
     auth0 = oauth.register(
@@ -22,6 +22,6 @@ def setup():
         access_token_url=os.environ['AUTH0_DOMAIN']+'/oauth/token',
         authorize_url=os.environ['AUTH0_DOMAIN']+'/authorize',
         client_kwargs={
-            'scope': 'openid email profile',
+            'scope': 'openid email profile', # What data you want to fetch.
         },
     )

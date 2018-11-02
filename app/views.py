@@ -6,7 +6,7 @@ import tweepy
 import os
 from datetime import datetime, timedelta
 import time
-# from apscheduler.scheduler import Scheduler
+# from apscheduler.scheduler import Scheduler.
 from datetime import datetime, timedelta
 from six.moves.urllib.request import urlopen
 from six.moves.urllib.parse import urlencode
@@ -24,12 +24,12 @@ def initialize():
     auth0 = auth.auth0
 
 # Routing.
-# Protected Page. Only accessible after login
+# Protected Page. Only accessible after login.
 def requires_auth(f):
   @wraps(f)
   def decorated(*args, **kwargs):
     if 'profile' not in session:
-      # Redirect to Login page here
+      # Redirect to Login page here.
       return redirect('/')
     return f(*args, **kwargs)
 
@@ -57,7 +57,7 @@ def dashboard():
     tweep = tweepy.OAuthHandler(os.environ['API_KEY'], os.environ['CONSUMER_SECRET'])
   
     api = tweepy.API(tweep)
-    # Fetch data of all these accounts
+    # Fetch data of all these accounts.
     linkedAccs = list(map(lambda x : api.get_user(x['twitter_id']) , twitteraccounts))
     return render_template('dashboard.html', accounts = linkedAccs)
 
@@ -104,19 +104,16 @@ def addFlockCallback():
     with db.get_db_cursor(commit=True) as cur:
         cmd = "INSERT INTO twitteraccs (email, twitter_id, access_token, access_token_secret, hashtags) VALUES ('{}', {},'{}', '{}', '{}');".format(session['profile']['email'], api.me().id, accessKey, accessKeySecret,None)
         cur.execute(cmd)        
-    
-    # api.retweet(textOnly[0])
-    return redirect('/dashboard')
+        return redirect('/dashboard')
 
-# Auth0 Login
-# TODO: fix redirect url
+# Auth0 Login.
 @app.route('/login')
 def login():
-    return auth0.authorize_redirect(redirect_uri='https://blooming-cove-74935.herokuapp.com/callback', audience=os.environ['AUTH0_DOMAIN']+'/userinfo')
+    return auth0.authorize_redirect(redirect_uri=os.environ['REDIRECT_URL'], audience=os.environ['AUTH0_DOMAIN']+'/userinfo')
 
 @app.route('/callback')
 def callbackHandling():
-    # Handles response from token endpoint
+    # Handles response from token endpoint.
     auth0.authorize_access_token()
     resp = auth0.get('userinfo')
     userinfo = resp.json()
@@ -131,17 +128,17 @@ def callbackHandling():
     }
     return redirect('/dashboard')
 
-# 404 
+# 404. 
 @app.errorhandler(404)
 def page_not_found(error):
     return render_template("404.html"), 404
 
-# Auth0 Logout
+# Auth0 Logout.
 @app.route('/logout')
 def logout():
-    # Clear session stored data
+    # Clear session stored data.
     session.clear()
-    # Redirect user to logout endpoint
+    # Redirect user to logout endpoint.
     return redirect('/')
     params = {'returnTo': url_for('home', _external=True), 'client_id': os.environ['CLIENT_ID']}
     return redirect(auth0.api_base_url + '/v2/logout?' + urlencode(params))
@@ -179,7 +176,7 @@ def saveHashtags():
 
     return json.dumps({'status':'OK','hashtags':hashtags})
 
-# Unlink the account via AJAX
+# Unlink the account via AJAX.
 @app.route('/unlinkAccount', methods=['POST'])
 def unlinkAccount():
     twitter_id = request.form['twitter_id']
@@ -197,10 +194,9 @@ def searchHashtags():
         return json.dumps({'Status':'400'})
     # Search from the db.
     with db.get_db_cursor() as cur:
-        # XXX: hack for query wildcard characters w/ correct escaping
+        # XXX: hack for query wildcard characters w/ correct escaping.
         query_wildcard = f"%{query}%"
         cur.execute("SELECT hashtags FROM hashtags where hashtags ilike (%s)", (query_wildcard,))
         hashtags = [record for record in cur]
         app.logger.info(hashtags)
-
     return json.dumps({'status': 'OK', 'hashtags': hashtags}) 

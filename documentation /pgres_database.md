@@ -3,9 +3,6 @@
 Documentation on the heroku postgres database.
 
 ## CLI Access
-Access:
-`$ heroku psql -a blooming-cove-74935`
-
 To view all tables: `\dt`
 To leave CLI: `\q`
 To view all columns: `select * from <table>;`

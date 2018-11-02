@@ -1,21 +1,17 @@
 # Everything related to db goes here.
 from contextlib import contextmanager
-import logging
 import os
-
-from flask import g, current_app
-
 import psycopg2
 from psycopg2.pool import ThreadedConnectionPool
 from psycopg2.extras import DictCursor
 
+# Global variable to manage the pooling of db connections.
 pool = None
 
 def setup():
     global pool
     DATABASE_URL = os.environ['DATABASE_URL']
     pool = ThreadedConnectionPool(1, 4, dsn=DATABASE_URL, sslmode='require')
-
 
 @contextmanager
 def get_db_connection():
@@ -24,7 +20,6 @@ def get_db_connection():
         yield connection
     finally:
         pool.putconn(connection)
-
 
 @contextmanager
 def get_db_cursor(commit=False):
