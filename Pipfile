@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+flask = "*"
+gunicorn = "*"
+"psycopg2-binary" = "*"
+datetime = "*"
+tweepy = "*"
+python-dotenv = "*"
+pip = "==18.0"
+python-jose-cryptodome = "*"
+six = "*"
+flask-cors = "*"
+request = "*"
+authlib = "*"
+apscheduler = "==3.3.1"
+
+[dev-packages]
+pylint = "<2.0.0"
+
+[requires]
+python_version = "3.6"

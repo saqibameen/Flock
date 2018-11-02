@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+
+{% block title %} Flock — Retweets Redefined {% endblock title %}
+
+{% block main_content %}
+<div class="main-wrapper">
+    <div class="main-text-flock main-heading main-color-sub2">
+        <span class="main-color">Retweets</span><br> Made Easy<span class="secondary-color">...</span>
+    </div>
+    <div class="main-img-flock">
+        <img src="{{ url_for('static', filename='images/main-img.png') }}" alt="">
+    </div>
+</div>
+
+<div class="flock-description">
+    <div class="description-title main-color-sub">
+        What does <span class="main-color">Flock</span> do?
+    </div>
+    <div class="description">
+        Flock makes retweeting super easy for the marketing agencies. Link your multiple twitter accounts with your flock accounts. Add hashtags to each twitter account and we will watch them. Whenever you tweet from any of the linked account, we'll watch for those hashtags and retweet if any of the hashtags found in the tweet.
+    </div>
+</div>
+
+
+<div class="flock-description-retweet" id="retweet-hashtag-container">
+    <div class="description-title main-color-sub">
+        See what people are <span class="main-color">#Tweeting</span> about?
+    </div>
+    <div class="description">
+        See the trendy hashtags in the retweets.
+    </div>
+
+    <div class="search-hashtags">
+        <form class="pure-form">
+                <input type="text" class="pure-input" id="search-query" required>
+                <input type="button" class="pure-button pure-button-search" onclick="searchAjax()" value="Search">
+        </form>
+    </div>
+
+    <ul class="hashtag-container-main" id="hashtag-container-search">
+        {% for hashtag in hashtags %}
+        <li class="hashtag-main">{{hashtag[0]}} | {{hashtag[1]}}</li> 
+        {% endfor %}
+    </ul>
+</div>
+
+
+<div class="flock-working">
+    <div class="description-title main-color-sub">
+        How does <span class="main-color">Flock</span> work?
+    </div>
+    <div class="description">
+        Using Flask is super easy! Quick steps explained below.
+    </div>
+    <div class="steps-wrapper">
+        <div class="step step-row">
+            <div class="step-detail">
+                <div class="step-title">
+                    Step #01 — Link Your Twitter Account
+                </div>
+                <div class="step-description">
+                    Use the super easy interface authorize your Twitter account.<br> Your data is secured and will be used to retweet only.
+                </div>
+            </div>
+            <div class="step-image">
+                <img src="{{url_for('static', filename='images/step1.png') }}" alt="">
+            </div>
+        </div>
+        <div class="step step-row-reverse">
+            <div class="step-detail">
+                <div class="step-title">
+                    Step #02 — Add the Hashtags You Want to Retweet!
+                </div>
+                <div class="step-description">
+                    Add one or more #hashtags you want to retweet from your account. <br>
+                    We'll retweet for you!
+                </div>
+            </div>
+            <div class="step-image">
+                <img src="{{url_for('static', filename='images/step2.png') }}" alt="">
+            </div>
+        </div>
+        <div class="step step-row">
+            <div class="step-detail">
+                <div class="step-title">
+                    Step #03 — Tweet! ... Don't Forget the Hashtags.
+                </div>
+                <div class="step-description">
+                    Tweet from any of the linked accounts to get it retweeted. <br>But don't forget the hashtags. 😉
+                </div>
+            </div>
+            <div class="step-image">
+                <img src="{{url_for('static', filename='images/step3.png') }}" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %} 
+
+

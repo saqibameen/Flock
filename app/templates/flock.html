@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block title %} Manage Hashtags — Flock {% endblock %}
+
+{% block main_content %}
+
+<div class="flock-wrapper">
+        <div class="subpage-header subpage-header-flock">
+                <h2 class="subpage-heading">
+                        Manage Hashtags for {{account.name}} 
+                </h2>
+                <div class="subpage-description">
+                        Add/Remove Hashtags. Do not add '#' symbol while adding hashtag.
+                </div>
+        </div>
+        
+        <img class="flock-img" src="{{account.profile_image_url_https.replace('_normal','')}}" >
+        <h3>Username</h3>
+        <p>{{account.screen_name }}</p>
+        <h3>Hashtags</h3>        
+        <form class="pure-form">
+                <input type="text" class="pure-input" id="newHashtag" required>
+                <input type="button" class="pure-button pure-button-primary" onclick="addHashtag()" value="Add">
+        </form>
+        <ul id="hashtag-container">
+                {% for hashtag in hashtags %}
+                <li class="hashtag">{{hashtag}}&nbsp;<span class="cross" onclick="removeHashtag(this)">x</span></li> 
+                {% endfor %}
+        </ul>
+        <form action="" class="pure-form">
+                <button type="button" class="button-success pure-button " onclick="saveHashtags()">Save</button>
+        </form>
+        <div class="alert" id="success"></div>
+<div class="alert" id="error"></div>
+</div>
+
+
+
+
+{% endblock %}

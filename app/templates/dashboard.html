@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %} Dashboard — Flask {% endblock title %}
+
+{% block main_content %}
+
+<div class="subpage-header">
+    <h2 class="subpage-heading">
+        Manage
+    </h2>
+    <div class="subpage-description">
+        Add, Remove, and Manage Individual Twitter Accounts. Before linking an account make sure you're logged in with the right Twitter account in Browser.
+    </div>
+</div>
+
+<div class="accounts-wrapper">
+    <a href="/add-flock" class="btn-add-flock" >
+        Add New Account
+    </a> 
+    <table class="pure-table table-manage-accounts">
+        <thead>
+            <tr>
+                <th>Twitter Screen Name</th>
+                <th>Twitter Username</th>
+                <th>Manage Hashtags</th>
+                <th>Unlink Account</th>
+            </tr>
+        </thead>
+    
+        <tbody>
+            {% for acc in accounts %}
+            <tr>
+                <td>{{acc.name}}</td>
+                <td>{{acc.screen_name}}</td>
+                <td><a class="btn-manage-flock" href="/flocks/{{acc.id}}">Manage </a></td>
+                <td>
+                    <span id='unlink-account' class="remove-flock" onclick='unlinkAccount({{acc.id}}, this)'>Unlink</span>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+<div class="alert" id="success"></div>
+<div class="alert" id="error"></div>
+</div>
+
+
+
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>{% block title %}{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/custom.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/pure-min.css') }}">
+        <script
+            src="https://code.jquery.com/jquery-3.3.1.min.js"
+            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.min.js"></script>
+        <script src="{{ url_for('static', filename='js/custom.js') }}" ></script>
+        <link href="https://fonts.googleapis.com/css?family=Asap|Oswald:500" rel="stylesheet">        <!--[if lte IE 8]>
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-old-ie-min.css">
+        <![endif]-->
+        <!--[if gt IE 8]><!-->
+        <link rel="stylesheet" href="https://unpkg.com/purecss@1.0.0/build/grids-responsive-min.css">
+        <!--<![endif]-->
+    </head>
+
+    <body>
+        <div class="main-wrapper-flock">
+            <div class="header-wrapper">
+                <div class="logo-flock">
+                        <a href="{{ url_for('index') }}"> <img src="{{ url_for('static', filename='images/logo.png') }}" alt=""> </a>
+                </div>
+                <div class="nav-flock">
+                    {% if session['profile'] is defined %}
+                        <a href="/dashboard" class="nav-link-flock main-color">Dashboard</a>
+                        <a class="btn-logout-flock" href="{{ url_for('logout') }}">Logout</a>
+                    {% else %}
+                        <a class="btn-login-flock" href="{{ url_for('login') }}">Login</a>
+                    {% endif %}
+                </div> 
+            </div>  
+            {% block main_content %} {% endblock %} 
+            <footer class="flock-footer">
+                CS-5117 Class Project. Built with Flask & ❤️.
+            </footer>
+        </div>
+    </body>
+
+</html>
+
