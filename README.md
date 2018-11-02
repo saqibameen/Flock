@@ -4,7 +4,9 @@
 
 > Twitter automation app to link multiple accounts, listen for hashtags, and retweet. Built using Flask (Python) and Tweepy.
 
-<small> Note: This app for learning purposes only not for commercial purposes. <em>Do not use it for commercial purposes</em></small>
+<small> Note: This app for learning purposes only not for commercial purposes. 
+<em>Do not use it for commercial purposes</em>
+</small>
 
 ## 🔥 How to Run?
 This repo contains two branches — master and deploy. Deploy is the version which you can use to deploy the app to Heroku while master version can be used to run the app locally. Below are the instructions on deploying and running the app locally but there are a few things common which are listed below.
