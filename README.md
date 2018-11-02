@@ -11,11 +11,7 @@
 ## 🚀 Set up the Application
 The application was structured to run on Heroku. You can follow the steps below to set it up.
 
-1. Make sure you have `python` and `pipenv` installed on your machine. You can install pipenv using the following command. 
-```
-pip install pipenv
-```
-2. This app uses `postgres` db by Heroku. This app makes use of free Heroku account so you can easily follow this. First you need to link your cloned repo with Heroku. Make sure you have linked your Heroku account with the app. It makes use of Heroku CLI. Follow the [Instructions](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) on Heroku official site to install Heroku CLI. After installation follow the steps below to set up database.
+1. This app uses `postgres` db by Heroku. This app makes use of free Heroku account so you can easily follow this. First you need to link your cloned repo with Heroku. Make sure you have linked your Heroku account with the app. It makes use of Heroku CLI. Follow the [Instructions](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) on Heroku official site to install Heroku CLI. After installation follow the steps below to set up database.
 * Create Heroku app.
 ```
 heroku create
@@ -30,7 +26,7 @@ heroku config:get DATABASE_URL
 ```
 That's the URL you will need in the next step.
 
-3. Rename the `sample.env` file contains all the configuration variables you need to set on Heroku.
+2. Rename the `sample.env` file contains all the configuration variables you need to set on Heroku.
 ```
 # Variables for flask.
 FLASK_APP=app
@@ -59,7 +55,7 @@ _Remember_ when you create an app, it requires a callback URL. That's the value 
 heroku config:set ENV_VARIABLE_NAME=VALUE
 ```
 
-4. Set up the databse by using the instructions below:
+3. Set up the databse by using the instructions below:
 * In the CLI run the following command in your project directory to access the database.
 ```
 heroku psql
@@ -67,7 +63,7 @@ heroku psql
 * Head to `documentation` folder of this repo, it contains all the commands you need to run at this point to create the database tables.
 _Note:_ This app doesn't hash the `Twitter Auth Keys` before saving in the database. 
 
-5. Deploy it on Heroku.
+4. Deploy it on Heroku.
 * Create a `clock` dyno on Heroku.
 ```
 heroku ps:scale clock=1
