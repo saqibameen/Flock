@@ -8,8 +8,8 @@
 <em>Do not use it for commercial purposes</em>
 </small>
 
-## 🔥 How to Run?
-This repo contains two branches — master and deploy. Deploy is the version which you can use to deploy the app to Heroku while master version can be used to run the app locally. Below are the instructions on deploying and running the app locally but there are a few things common which are listed below.
+## 🚀 Set up the Application
+The application was structured to run on Heroku. You can follow the steps below to set it up.
 
 1. Make sure you have `python` and `pipenv` installed on your machine. You can install pipenv using the following command. 
 ```
@@ -30,7 +30,7 @@ heroku config:get DATABASE_URL
 ```
 That's the URL you will need in the next step.
 
-3. Rename the `sample.env` file to `.env`. It contains following content.
+3. Rename the `sample.env` file contains all the configuration variables you need to set on Heroku.
 ```
 # Variables for flask.
 FLASK_APP=app
@@ -54,6 +54,10 @@ TWITTER_CALLBACK=''
 * **Variables for Auth0**: This app uses **auth0** for authentication purpose. So you can get those credentials by setting up an app on auth0. The `REDIRECT_URL` is the allowed callback url for logout. So make sure you add it in your app on auth0 as well.
 * **Variables for Tweepy**: Tweepy is the Twitter API package for Python. And the `API_KEY` and `CONSUMER_SECRET` are required by Tweepy to conenct to Twitter app. To get these keys, you need to sign up for a [Twitter Developer Account](https://developer.twitter.com/). Once your account is approved, create an app and grab those keys.
 _Remember_ when you create an app, it requires a callback URL. That's the value of `TWITTER_CALLBACK` and it should be something like `/twitter/callback`, i.e. relative to your root.
+* Use the following command to set all the configuration variables on Heroku.
+```
+heroku config:set ENV_VARIABLE_NAME=VALUE
+```
 
 4. Set up the databse by using the instructions below:
 * In the CLI run the following command in your project directory to access the database.
@@ -63,28 +67,12 @@ heroku psql
 * Head to `documentation` folder of this repo, it contains all the commands you need to run at this point to create the database tables.
 _Note:_ This app doesn't hash the `Twitter Auth Keys` before saving in the database. 
 
-That's all you need to set up initially for the app. Follow the instructions below separately for running locally and deploying.
-
-### ⚙️ Setting Up Locally
-Follow the steps below to run the app locally. To follow these steps, make sure you are on the master branch.
-1. Install all the dependencies by running following command.
-```
-pipenv install
-```
-2. Use the following command to run it locally.
-```
-heroku local dev
-```
-That's it, it's live you're good to go! ✌️ 
-
-### 🚀 Deploying on Heroku
-If you plan to deploy and test this app on Heroku, make sure you are on the `deploy` branch. The reason why there are two branches is the fact that on Heroku you have to set the cron jobs on a separate dyno. Cron job in this app is to check for new tweets after regular intervals and retweet. 
-1. Create a `clock` dyno on Heroku.
+5. Deploy it on Heroku.
+* Create a `clock` dyno on Heroku.
 ```
 heroku ps:scale clock=1
 ```
-2. Change all the callback urls.
-3. Push the code to Heroku.
+* Push the code to Heroku.
 ```
 git push heroku master
 ```

@@ -57,7 +57,6 @@ def filterTweets(tweets):
 # Schedular function.
 @sched.scheduled_job(trigger = 'interval', minutes=1)
 def listenForTweets():
-    print('chal rha hun main')
     # The business logic!
     # Grab all unique emails.
     with get_db_cursor() as cur:
