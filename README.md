@@ -61,7 +61,7 @@ heroku config:set ENV_VARIABLE_NAME=VALUE
 heroku psql
 ```
 * Head to `documentation` folder of this repo, it contains all the commands you need to run at this point to create the database tables.
-_Note:_ This app doesn't hash the `Twitter Auth Keys` before saving in the database. 
+**Note:** This app doesn't hash the `Twitter Auth Keys` before saving in the database. 
 
 4. Deploy it on Heroku.
 * Create a `clock` dyno on Heroku.
