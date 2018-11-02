@@ -1,33 +1,92 @@
-# Module 2 Group Assignment: Generation Station
-
-CSCI 5117, Fall 2018, [assignment description](https://docs.google.com/document/d/1HhB-96IZ-u5VlfBfdsy9-pkB59zzAapvW1MNsgvQq6M/edit)
-
-## App Info:
-
 <div align="center">
   <img src="https://i.imgur.com/JXAQWEU.png"/>
 </div>
+> Twitter automation app to link multiple accounts, listen for hashtags, and retweet. Built using Flask (Python) and Tweepy.
+<small> Note: This app for learning purposes only not for commercial purposes. <em>Do not use it for commercial purposes</em></small>
 
-* Team Name: Mustache
-* App Name: Flock
-* App Link: <https://blooming-cove-74935.herokuapp.com/>
+## 🔥 How to Run?
+This repo contains two branches — master and deploy. Deploy is the version which you can use to deploy the app to Heroku while master version can be used to run the app locally. Below are the instructions on deploying and running the app locally but there are a few things common which are listed below.
 
-### Students
+1. Make sure you have `python` and `pipenv` installed on your machine. You can install pipenv using the following command. 
+```
+pip install pipenv
+```
+2. This app uses `postgres` db by Heroku. This app makes use of free Heroku account so you can easily follow this. First you need to link your cloned repo with Heroku. Make sure you have linked your Heroku account with the app. It makes use of Heroku CLI. Follow the [Instructions](https://devcenter.heroku.com/articles/heroku-cli#download-and-install) on Heroku official site to install Heroku CLI. After installation follow the steps below to set up database.
+* Create Heroku app.
+```
+heroku create
+```
+* Create the database.
+```
+heroku addons:create heroku-postgresql:hobby-dev
+```
+* Use the following command the get the db connection link.
+```
+heroku config:get DATABASE_URL
+```
+That's the URL you will need in the next step.
 
-* JOAN ZHENG, zheng673@umn.edu
-* Ounngy Ing, ingxx006@umn.edu
-* Saqib Ameen, ameen007@umn.edu
-* Mai Nguyen, nguy2365@umn.edu
+3. Rename the `sample.env` file to `.env`. It contains following content.
+```
+# Variables for flask.
+FLASK_APP=app
+FLASK_ENV=development
+APP_SECRET_KEY=''
 
-## Key Features
+# Variables for Heroku postgres.
+DATABASE_URL=''
 
-* Setting up cron job to check for new tweets after regular intervals and retweet.
-* Setting Cron Job on Heroku: it was quite hard to set cron jobs locally, once it was done, we had hard time deploying it on heroku. Because the cron job did not work on Heroku. We had to setup `clock dyno` on Heroku using APS Scheduler library of Python which also contains bug.
-* Deployment to Heroku: We are in zone GMT-5, Twitter gives tweets time in GMT, while heroku also gives time in GMT. Since we checked for the new tweets after a specific time of lask check, it was hard to figure out and fix.
-* Tweepy, which is python library for using Twitter API, is not very well documented and contains bug. Sometimes we had to change the code inside the library to fix it. 
+# Variables for Auth0.
+AUTH0_DOMAIN=''
+CLIENT_ID=''
+CLIENT_SECRET=''
 
+# Variables for Tweepy.
+API_KEY=''
+CONSUMER_SECRET=''
+TWITTER_CALLBACK=''
+```
+* **Variables for Heroku postgres**: We got it in the previous step.
+* **Variables for Auth0**: This app uses **auth0** for authentication purpose. So you can get those credentials by setting up an app on auth0. The `REDIRECT_URL` is the allowed callback url for logout. So make sure you add it in your app on auth0 as well.
+* **Variables for Tweepy**: Tweepy is the Twitter API package for Python. And the `API_KEY` and `CONSUMER_SECRET` are required by Tweepy to conenct to Twitter app. To get these keys, you need to sign up for a [Twitter Developer Account](https://developer.twitter.com/). Once your account is approved, create an app and grab those keys.
+_Remember_ when you create an app, it requires a callback URL. That's the value of `TWITTER_CALLBACK` and it should be something like `/twitter/callback`, i.e. relative to your root.
 
-## Screenshots of Site
+4. Set up the databse by using the instructions below:
+* In the CLI run the following command in your project directory to access the database.
+```
+heroku psql
+```
+* Head to `documentation` folder of this repo, it contains all the commands you need to run at this point to create the database tables.
+_Note:_ This app doesn't hash the `Twitter Auth Keys` before saving in the database. 
+
+That's all you need to set up initially for the app. Follow the instructions below separately for running locally and deploying.
+
+### ⚙️ Setting Up Locally
+Follow the steps below to run the app locally. To follow these steps, make sure you are on the master branch.
+1. Install all the dependencies by running following command.
+```
+pipenv install
+```
+2. Use the following command to run it locally.
+```
+heroku local dev
+```
+That's it, it's live you're good to go! ✌️ 
+
+### 🚀 Deploying on Heroku
+If you plan to deploy and test this app on Heroku, make sure you are on the `deploy` branch. The reason why there are two branches is the fact that on Heroku you have to set the cron jobs on a separate dyno. Cron job in this app is to check for new tweets after regular intervals and retweet. 
+1. Create a `clock` dyno on Heroku.
+```
+heroku ps:scale clock=1
+```
+2. Change all the callback urls.
+3. Push the code to Heroku.
+```
+git push heroku master
+```
+That's it! Your site is live on Heroku! 💯
+
+## 📸 Screenshots of App
 
 * Homepage: Contains all the description of app, search box, and details.
 <img src="https://i.imgur.com/snr6LyK.gif">
@@ -37,23 +96,3 @@ CSCI 5117, Fall 2018, [assignment description](https://docs.google.com/document/
 <img src="https://i.imgur.com/xRtL8Ml.png">
 * Search Box: Lists the hashtags people are retweeting about with no of retweets + AJAX Search.
 <img src="https://i.imgur.com/EcBMDwW.png">
-
-
-## Paper Prototype
-
-![Paper Prototype](https://i.imgur.com/j4JYooU.jpg)
-Paper Prototype with flow of application. 
-1) Starting page shows login along with some recent tweets for non logged in users.
-2) ~~On login it shows analytics of retweeted tweets.~~ Was not required.
-3) Your Flocks link takes to the page where you can manage all the linked accounts.
-4) Clicking on the account will take you to hashtag settings for that account.
-
-
-## External Dependencies
-
-* gunicorn: To deploy on Heroku
-* psycopg2: To interact with db
-* datetime: To compute time differences
-* tweepy: Python lib to interact with Twitter API
-* python-jose-cryptodome, six, flask-cors, request, auth-lib: For authentication
-* apscheduler: To set cron jobs to check for tweets after regular intervals.

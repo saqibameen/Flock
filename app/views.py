@@ -73,7 +73,7 @@ def addFlock():
     return redirect(redirect_url)
 
 # Twitter auth callback.
-@app.route('/twitter/callback')
+@app.route(os.environ['TWITTER_CALLBACK'])
 def addFlockCallback():
     # Make an instance of tweepy object.
     tweep = tweepy.OAuthHandler(os.environ['API_KEY'], os.environ['CONSUMER_SECRET'])
