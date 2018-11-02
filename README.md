@@ -4,7 +4,7 @@
 
 > Twitter automation app to link multiple accounts, listen for hashtags, and retweet. Built using Flask (Python) and Tweepy.
 
-<small> Note: This app for learning purposes only not for commercial purposes. 
+<small> Note: This app for learning purposes only. 
 <em>Do not use it for commercial purposes</em>
 </small>
 
