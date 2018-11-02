@@ -87,3 +87,9 @@ That's it! Your site is live on Heroku! 💯
 
 * Search Box: Lists the hashtags people are retweeting about with no of retweets + AJAX Search.
 <img src="https://i.imgur.com/EcBMDwW.png">
+
+## License
+Released under GNU GPLv2.0 or later license.
+
+##### → Feel free to tweet and say 👋 at me [@MrSaqibAmeen](https://twitter.com/MrSaqibAmeen/)
+
