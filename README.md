@@ -1,7 +1,9 @@
 <div align="center">
   <img src="https://i.imgur.com/JXAQWEU.png"/>
 </div>
+
 > Twitter automation app to link multiple accounts, listen for hashtags, and retweet. Built using Flask (Python) and Tweepy.
+
 <small> Note: This app for learning purposes only not for commercial purposes. <em>Do not use it for commercial purposes</em></small>
 
 ## 🔥 How to Run?
@@ -90,9 +92,12 @@ That's it! Your site is live on Heroku! 💯
 
 * Homepage: Contains all the description of app, search box, and details.
 <img src="https://i.imgur.com/snr6LyK.gif">
+
 * Dashboard: Allows user to link the new Twitter account, unlink previous accounts, and manage hashtags for each account.
 <img src="https://i.imgur.com/0aJE6Rn.png">
+
 * Manage Hashtags: Add/Remove Hashtags.
 <img src="https://i.imgur.com/xRtL8Ml.png">
+
 * Search Box: Lists the hashtags people are retweeting about with no of retweets + AJAX Search.
 <img src="https://i.imgur.com/EcBMDwW.png">
