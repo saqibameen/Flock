@@ -91,5 +91,5 @@ That's it! Your site is live on Heroku! 💯
 ## License
 Released under GNU GPLv2.0 or later license.
 
-##### → Feel free to tweet and say 👋 at me [@MrSaqibAmeen](https://twitter.com/MrSaqibAmeen/)
+##### → Feel free to tweet and say 👋 at me [@SaqibAmeen](https://twitter.com/SaqibAmeen/)
 
